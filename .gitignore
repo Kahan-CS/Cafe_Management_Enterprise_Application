@@ -1,3 +1,7 @@
+# Environment configuration
+*.env
+.env.*
+
 # Created by https://www.toptal.com/developers/gitignore/api/aspnetcore,visualstudio,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=aspnetcore,visualstudio,visualstudiocode
 
