@@ -13,22 +13,22 @@ namespace Project2_Enterprise.Controllers
     public class OrderController : ControllerBase
     {
        
-        // Endpoint to process an order
+        // this is the Endpoint to process an order
         [HttpPost("process")]
         public ActionResult<OrderResponse> ProcessOrder([FromBody] OrderRequest orderRequest)
         {
-            // Validate the request
+            // Validating the request
             if (orderRequest == null || orderRequest.Items == null || !orderRequest.Items.Any())
             {
                 return BadRequest("Invalid order request.");
             }
 
-            // Calculate subtotal (sum of item prices)
+            // Calculating subtotal (sum of item prices)
             decimal subtotal = orderRequest.Items.Sum(item => item.Price);
             decimal tax = subtotal * 0.1m; // Assume a 10% tax rate
             decimal total = subtotal + tax;
 
-            // Construct the response
+            // Constructing the response
             var response = new OrderResponse
             {
                 OrderId = orderRequest.OrderId,

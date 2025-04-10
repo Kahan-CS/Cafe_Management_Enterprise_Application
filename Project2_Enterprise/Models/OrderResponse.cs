@@ -2,10 +2,10 @@
 {
     public class OrderResponse
     {
-        public int OrderId { get; set; } // Unique identifier for the order
-        public List<OrderItem> Items { get; set; } // List of order items
-        public decimal Subtotal { get; set; } // Total before tax
-        public decimal Total { get; set; } // Total including tax
+        public int OrderId { get; set; } 
+        public List<OrderItem> Items { get; set; } 
+        public decimal Subtotal { get; set; }
+        public decimal Total { get; set; } 
     }
 }
-}
+

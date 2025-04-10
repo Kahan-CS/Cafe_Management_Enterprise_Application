@@ -4,8 +4,8 @@ namespace Project2_Enterprise.Models
 {
     public class OrderRequest
     {
-            public int OrderId { get; set; } // Unique identifier for the order
-            public List<OrderItem> Items { get; set; } // List of order items
+            public int OrderId { get; set; }
+            public List<OrderItem> Items { get; set; }
       
     }
 }
