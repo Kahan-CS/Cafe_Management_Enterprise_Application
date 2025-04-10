@@ -25,10 +25,10 @@ namespace Project2_Enterprise.Controllers
 
             // Calculating subtotal (sum of item prices)
             decimal subtotal = orderRequest.Items.Sum(item => item.Price);
-            decimal tax = subtotal * 0.1m; // Assume a 10% tax rate
+            decimal tax = subtotal * 0.13m; // ontario tax rate
             decimal total = subtotal + tax;
 
-            // Constructing the response
+            // response
             var response = new OrderResponse
             {
                 OrderId = orderRequest.OrderId,
