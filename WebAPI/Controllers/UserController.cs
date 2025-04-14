@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new { user.Id, user.Name, user.Email, user.UserName });
+            return Ok(new { user.Id, user.Name, user.Email });
         }
 
         // PUT: /users/my
