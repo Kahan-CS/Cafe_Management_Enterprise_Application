@@ -25,7 +25,6 @@ namespace AdminClient.Entities
 		[FutureDate(ErrorMessage = "Event date must be in the future.")]
 		public DateTime EventTime { get; set; }
 
-		// TODO: fix this!!
 		// Custom validation attribute to ensure event date is in the future
 		public class FutureDateAttribute : ValidationAttribute
 		{
@@ -33,7 +32,7 @@ namespace AdminClient.Entities
 			{
 				if (value is DateTime bookingDateTime)
 				{
-					if (bookingDateTime <= DateTime.Today)
+					if (bookingDateTime <= DateTime.Now)
 					{
 						return new ValidationResult("The event date must be in the future.");
 					}
