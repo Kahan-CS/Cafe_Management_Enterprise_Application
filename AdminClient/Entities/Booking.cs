@@ -12,11 +12,11 @@ namespace AdminClient.Entities
 		[Required(ErrorMessage = "Booking must have an associated user.")]
 		public string UserId { get; set; } = string.Empty;
 
-		public virtual ApplicationUser? CreatedByUser { get; set; }
+		//public virtual ApplicationUser? CreatedByUser { get; set; }
 
 		// List of invitations
 		// public List<Invitation> Invitations { get; set; } = [];
-		public virtual ICollection<Invitation> Invitations { get; set; } = new List<Invitation>();
+		public virtual ICollection<Invitation> Invitations { get; set; } = [];
 
 		// Description
 		[Required(ErrorMessage = "Please enter a description.")]
