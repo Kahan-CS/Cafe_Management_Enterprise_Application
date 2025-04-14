@@ -19,7 +19,7 @@ namespace AdminClient.Entities
 		[Required(ErrorMessage = "Please enter a guest name.")]
 		public string GuestName { get; set; } = string.Empty;
 
-		public DateTime SentAt { get; set; }
+		// public DateTime SentAt { get; set; }
 
 		// Invitation status
 		[Required(ErrorMessage = "Please select an invitation status.")]
