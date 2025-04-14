@@ -2,22 +2,40 @@ using AdminClient.Configuration;
 using AdminClient.Services;
 using Microsoft.Extensions.Options;
 
+var builder = WebApplication.CreateBuilder(args);
+
 // Load environment variables from `.env` file 
 DotNetEnv.Env.Load();
-
-var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Configuration
-	.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-	.AddEnvironmentVariables();
+//builder.Configuration
+//	.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+//	.AddEnvironmentVariables();
 
-builder.Services.Configure<ApiSettings>(
-	builder.Configuration.GetSection("ApiSettings"));
+//builder.Services.Configure<ApiSettings>(
+//	builder.Configuration.GetSection("ApiSettings"));
 
-builder.Services.AddHttpClient<ApiService>((provider, client) =>
+builder.Services.Configure<ApiSettings>(options =>
+{
+	options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
+		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
+});
+
+builder.Services.AddHttpClient<BookingApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
+
+builder.Services.AddHttpClient<OrderApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
+
+builder.Services.AddHttpClient<UserApiService>((provider, client) =>
 {
 	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
 	client.BaseAddress = new Uri(settings.BaseUrl);
@@ -44,6 +62,5 @@ app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}")
 	.WithStaticAssets();
-
 
 app.Run();

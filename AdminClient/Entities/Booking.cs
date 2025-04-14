@@ -17,11 +17,15 @@ namespace AdminClient.Entities
 		[Required(ErrorMessage = "Please enter a description.")]
 		public string Description { get; set; } = string.Empty;
 
+		// Table number for the booking
+		public int TableNumber { get; set; }
+
 		// Date and time of event
 		[Required(ErrorMessage = "Please enter an event date.")]
 		[FutureDate(ErrorMessage = "Event date must be in the future.")]
-		public DateTime BookingDateTime { get; set; }
+		public DateTime EventTime { get; set; }
 
+		// TODO: fix this!!
 		// Custom validation attribute to ensure event date is in the future
 		public class FutureDateAttribute : ValidationAttribute
 		{

@@ -1,13 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AdminClient.Shared.Enums;
 
 namespace AdminClient.Entities
 {
-	public enum Role
-	{
-		Admin,
-		Customer,
-	}
-
 	public class User
 	{
 		public int UserId { get; set; }
@@ -24,6 +19,6 @@ namespace AdminClient.Entities
 
 		// The user's role
 		[Required(ErrorMessage = "Please select a role for the user.")]
-		public Role Role { get; set; } = Role.Customer;
+		public UserRole Role { get; set; } = UserRole.Customer;
 	}
 }
