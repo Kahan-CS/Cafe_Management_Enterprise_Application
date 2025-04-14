@@ -41,7 +41,6 @@ namespace WebAPI.Data
             string adminUserId = "1";
             string adminRoleId = "1";
 
-            // Create a password hasher instance to hash the admin password.
             var hasher = new PasswordHasher<ApplicationUser>();
 
             // Seed the admin user.
