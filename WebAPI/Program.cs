@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireDigit = true;
+}).AddEntityFrameworkStores<WebAPIDbContext>().AddDefaultTokenProviders();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,5 +56,12 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Static method being called from the db context to create admin user, as per snippet#2
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    await WebAPIDbContext.CreateAdminUser(scope.ServiceProvider);
+}
 
 app.Run();
