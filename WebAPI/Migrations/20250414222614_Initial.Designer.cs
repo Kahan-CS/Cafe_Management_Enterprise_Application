@@ -12,7 +12,7 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(WebAPIDbContext))]
-    [Migration("20250414105052_Initial")]
+    [Migration("20250414222614_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -246,16 +246,16 @@ namespace WebAPI.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b7664862-274e-417b-978b-01fe9d11f271",
+                            ConcurrencyStamp = "1ec6438c-0bc2-48b9-9f6e-f08c07434db0",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Administrator",
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBqE47SnKX9HtAI6XbGapvceuean/cqzFIsayeM2agR1THywYu4UHpxywDirAHL55g==",
+                            PasswordHash = "AQHAHAHAAEAACcQAAAAEGslp7npl23e2342126",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3767ab37-719f-4e8f-bdbb-01cb559399d1",
+                            SecurityStamp = "00000000-0000-0000-0000-000000000001",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -263,16 +263,16 @@ namespace WebAPI.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "579f2bcb-b708-4832-856e-d7423a745674",
+                            ConcurrencyStamp = "582a81ce-6ea2-4c21-8a95-fb967b84bb40",
                             Email = "jane.doe@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Jane Doe",
                             NormalizedEmail = "JANE.DOE@EXAMPLE.COM",
                             NormalizedUserName = "JANE.DOE",
-                            PasswordHash = "AQAAAAIAAYagAAAAENN7N9PH1xVkmBL+KTwDjKiElmBt7+LYKIArpOba5lu5cIp12FTlNwgGlTTdFP6EmA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342126",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bb0690ef-1ca8-43b1-8171-2a1a87e276cc",
+                            SecurityStamp = "00000000-0000-0000-0000-000000000002",
                             TwoFactorEnabled = false,
                             UserName = "jane.doe"
                         },
@@ -280,16 +280,16 @@ namespace WebAPI.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3b38f0e-ae93-4221-b70b-bb6490dfa0ea",
+                            ConcurrencyStamp = "24aac8fc-ca44-4ed7-b833-faef4c12d99f",
                             Email = "bob.smith@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Bob Smith",
                             NormalizedEmail = "BOB.SMITH@EXAMPLE.COM",
                             NormalizedUserName = "BOB.SMITH",
-                            PasswordHash = "AQAAAAIAAYagAAAAED2x364h+bLdMlxQd80+dzUZndtBCWC/+WU3fbkQ64tegAfJn7pUBz5NOKnIzZFqsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "236870f2-1adc-4695-8df4-1f22ad3c8d4e",
+                            SecurityStamp = "00000000-0000-0000-0000-000000000003",
                             TwoFactorEnabled = false,
                             UserName = "bob.smith"
                         },
@@ -297,16 +297,16 @@ namespace WebAPI.Migrations
                         {
                             Id = "4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9fbcb190-ea8a-4239-86c1-84681bbb1994",
+                            ConcurrencyStamp = "4598d9a9-9684-4d7a-a4f9-a7e01f4906fe",
                             Email = "alice.johnson@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Alice Johnson",
                             NormalizedEmail = "ALICE.JOHNSON@EXAMPLE.COM",
                             NormalizedUserName = "ALICE.JOHNSON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHZMJSVZSDWsat0PO+RHsxpydqHrFajyyFHdvC3kudCAWDuGb6t3h4T/BC+v+Sz0QA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342124",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7fb8d086-3f25-49a5-9d82-823bd24bb522",
+                            SecurityStamp = "00000000-0000-0000-0000-000000000004",
                             TwoFactorEnabled = false,
                             UserName = "alice.johnson"
                         });
@@ -347,7 +347,7 @@ namespace WebAPI.Migrations
                             BookingId = 1,
                             CreatedByUserId = "1",
                             Description = "Seeded Booking by Admin",
-                            EventDate = new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            EventDate = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Main Hall"
                         },
                         new
@@ -355,7 +355,7 @@ namespace WebAPI.Migrations
                             BookingId = 2,
                             CreatedByUserId = "2",
                             Description = "Seeded Booking by Jane",
-                            EventDate = new DateTime(2025, 4, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            EventDate = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Conference Room A"
                         });
                 });
