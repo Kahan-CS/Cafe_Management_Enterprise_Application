@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAllUsers()
         {
             var users = _userManager.Users
-                .Select(u => new { u.Id, u.Name, u.Email, u.UserName })
+                .Select(u => new { u.Id, u.Name, u.Email })
                 .ToList();
             return Ok(users);
         }
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new { user.Id, user.Name, user.Email, user.UserName });
+            return Ok(new { user.Id, user.Name, user.Email });
         }
 
         // PUT: /admin/users/{userId}

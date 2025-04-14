@@ -213,10 +213,10 @@ namespace WebAPI.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "b7664862-274e-417b-978b-01fe9d11f271", "admin@example.com", true, false, null, "Administrator", "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEBqE47SnKX9HtAI6XbGapvceuean/cqzFIsayeM2agR1THywYu4UHpxywDirAHL55g==", null, false, "3767ab37-719f-4e8f-bdbb-01cb559399d1", false, "admin" },
-                    { "2", 0, "579f2bcb-b708-4832-856e-d7423a745674", "jane.doe@example.com", true, false, null, "Jane Doe", "JANE.DOE@EXAMPLE.COM", "JANE.DOE", "AQAAAAIAAYagAAAAENN7N9PH1xVkmBL+KTwDjKiElmBt7+LYKIArpOba5lu5cIp12FTlNwgGlTTdFP6EmA==", null, false, "bb0690ef-1ca8-43b1-8171-2a1a87e276cc", false, "jane.doe" },
-                    { "3", 0, "a3b38f0e-ae93-4221-b70b-bb6490dfa0ea", "bob.smith@example.com", true, false, null, "Bob Smith", "BOB.SMITH@EXAMPLE.COM", "BOB.SMITH", "AQAAAAIAAYagAAAAED2x364h+bLdMlxQd80+dzUZndtBCWC/+WU3fbkQ64tegAfJn7pUBz5NOKnIzZFqsg==", null, false, "236870f2-1adc-4695-8df4-1f22ad3c8d4e", false, "bob.smith" },
-                    { "4", 0, "9fbcb190-ea8a-4239-86c1-84681bbb1994", "alice.johnson@example.com", true, false, null, "Alice Johnson", "ALICE.JOHNSON@EXAMPLE.COM", "ALICE.JOHNSON", "AQAAAAIAAYagAAAAEHZMJSVZSDWsat0PO+RHsxpydqHrFajyyFHdvC3kudCAWDuGb6t3h4T/BC+v+Sz0QA==", null, false, "7fb8d086-3f25-49a5-9d82-823bd24bb522", false, "alice.johnson" }
+                    { "1", 0, "1ec6438c-0bc2-48b9-9f6e-f08c07434db0", "admin@example.com", true, false, null, "Administrator", "ADMIN@EXAMPLE.COM", "ADMIN", "AQHAHAHAAEAACcQAAAAEGslp7npl23e2342126", null, false, "00000000-0000-0000-0000-000000000001", false, "admin" },
+                    { "2", 0, "582a81ce-6ea2-4c21-8a95-fb967b84bb40", "jane.doe@example.com", true, false, null, "Jane Doe", "JANE.DOE@EXAMPLE.COM", "JANE.DOE", "AQAAAAEAACcQAAAAEGslp7npl23e2342126", null, false, "00000000-0000-0000-0000-000000000002", false, "jane.doe" },
+                    { "3", 0, "24aac8fc-ca44-4ed7-b833-faef4c12d99f", "bob.smith@example.com", true, false, null, "Bob Smith", "BOB.SMITH@EXAMPLE.COM", "BOB.SMITH", "AQAAAAEAACcQAAAAEGslp7npl23e2342123", null, false, "00000000-0000-0000-0000-000000000003", false, "bob.smith" },
+                    { "4", 0, "4598d9a9-9684-4d7a-a4f9-a7e01f4906fe", "alice.johnson@example.com", true, false, null, "Alice Johnson", "ALICE.JOHNSON@EXAMPLE.COM", "ALICE.JOHNSON", "AQAAAAEAACcQAAAAEGslp7npl23e2342124", null, false, "00000000-0000-0000-0000-000000000004", false, "alice.johnson" }
                 });
 
             migrationBuilder.InsertData(
@@ -229,8 +229,8 @@ namespace WebAPI.Migrations
                 columns: new[] { "BookingId", "CreatedByUserId", "Description", "EventDate", "Location" },
                 values: new object[,]
                 {
-                    { 1, "1", "Seeded Booking by Admin", new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Local), "Main Hall" },
-                    { 2, "2", "Seeded Booking by Jane", new DateTime(2025, 4, 24, 0, 0, 0, 0, DateTimeKind.Local), "Conference Room A" }
+                    { 1, "1", "Seeded Booking by Admin", new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Main Hall" },
+                    { 2, "2", "Seeded Booking by Jane", new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Conference Room A" }
                 });
 
             migrationBuilder.InsertData(
