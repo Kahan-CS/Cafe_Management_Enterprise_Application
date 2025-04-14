@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AdminClient.Shared.Enums;
 
 namespace AdminClient.Entities
 {
@@ -11,8 +12,7 @@ namespace AdminClient.Entities
 		[Required]
 		public int UserId { get; set; }
 
-		// TODO: should be enum
-		public string Status { get; set; }
+		public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
 		public List<OrderItem> Items { get; set; } = [];
 	}

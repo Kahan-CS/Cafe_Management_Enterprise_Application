@@ -4,16 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdminClient.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> logger) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger = logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
+		public IActionResult Index()
         {
             return View();
         }
