@@ -97,13 +97,6 @@ namespace AdminClient.Controllers
 			return View();
 		}
 
-		// GET: /Auth/ResetPasswordConfirmation
-		[HttpGet]
-		public IActionResult ResetPasswordConfirmation()
-		{
-			return View();
-		}
-
 		// TODO: add actions to handle ResetPasswordConfirm
 	}
 }
