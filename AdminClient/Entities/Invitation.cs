@@ -21,7 +21,7 @@ namespace AdminClient.Entities
 
 		public DateTime SentAt { get; set; }
 
-		// Invitation status, using enum defined above
+		// Invitation status
 		[Required(ErrorMessage = "Please select an invitation status.")]
 		public InvitationStatus Status { get; set; } = InvitationStatus.InviteNotSent;
 	}
