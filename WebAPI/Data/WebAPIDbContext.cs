@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
 
 namespace WebAPI.Data
@@ -20,7 +21,7 @@ namespace WebAPI.Data
             // Configure the relationship between Booking and ApplicationUser.
             builder.Entity<Booking>()
                 .HasOne(b => b.CreatedByUser)
-                .WithMany() // Optionally, you can add a navigation collection in ApplicationUser if desired.
+                .WithMany()
                 .HasForeignKey(b => b.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
