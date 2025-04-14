@@ -1,0 +1,53 @@
+﻿@model List<AdminClient.Messages.UserDto>?
+
+@{
+	ViewData["Title"] = "User Management";
+}
+
+@if (ViewBag.ApiError != null)
+{
+	<div class="alert alert-warning text-center">
+		@ViewBag.ApiError
+	</div>
+}
+
+<div class="text-center mb-4">
+	<h1 class="display-4">User Management</h1>
+	<p>View all registered users and deactivate accounts as needed.</p>
+</div>
+
+@if (Model is { Count: > 0 })
+{
+	<table class="table table-bordered">
+		<thead class="table-light">
+			<tr>
+				<th>User ID</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Model)
+			{
+				<tr>
+					<td>@user.UserId</td>
+					<td>@(user.Name ?? "—")</td>
+					<td>@(user.Email ?? "—")</td>
+					<td>@(user.Role)</td>
+					<td>
+						<form asp-action="Deactivate" asp-controller="User" method="post">
+							<input type="hidden" name="userId" value="@user.UserId" />
+							<button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<div class="alert alert-info text-center">No users found.</div>
+}

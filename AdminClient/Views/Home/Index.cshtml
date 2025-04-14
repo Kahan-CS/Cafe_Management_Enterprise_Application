@@ -1,8 +1,83 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<AdminClient.Messages.BookingDto>?
+
+@{
+	ViewData["Title"] = "All Bookings";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@if (ViewBag.ApiError != null)
+{
+	<div class="alert alert-warning text-center">
+		@ViewBag.ApiError
+	</div>
+}
+
+<div class="text-center mb-4">
+	<h1 class="display-4">All Bookings</h1>
+	<p>See the current list of customer bookings below.</p>
 </div>
+
+@if (Model != null && Model.Any())
+{
+	<table class="table table-bordered">
+		<thead class="table-light">
+			<tr>
+				<th>Booking ID</th>
+				<th>User ID</th>
+				<th>Table Number</th>
+				<th>Description</th>
+				<th>Event Time</th>
+				<th>Guests</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var booking in Model)
+			{
+				<tr>
+					<td>@booking.BookingId</td>
+					<td>@booking.UserId</td>
+					<td>@booking.TableNumber</td>
+					<td>@booking.Description</td>
+					<td>@booking.EventTime.ToString("g")</td>
+					<td>@(booking.Invitations?.Count ?? 0)</td>
+					<td>
+						<form asp-action="Cancel" asp-route-id="@booking.BookingId" method="post" onsubmit="return confirm('Cancel this booking?');">
+							<button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+						</form>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<!-- Filter by User ID -->
+	<div class="mb-4">
+		<form asp-action="FilterByUser" method="get" class="d-flex gap-2">
+			<input type="number" name="userId" class="form-control" placeholder="Filter by User ID" required />
+			<button type="submit" class="btn btn-primary">Filter</button>
+		</form>
+	</div>
+
+	@* <!-- Booking Pricing Update --> *@
+	@* <div class="mb-4"> *@
+	@* 	<form asp-action="UpdatePricing" method="post" class="border p-3 rounded shadow-sm bg-light"> *@
+	@* 		<h5>Update Booking Pricing</h5> *@
+	@* 		<div class="mb-2"> *@
+	@* 			<label for="bookingId" class="form-label">Booking ID</label> *@
+	@* 			<input type="number" name="BookingId" class="form-control" required /> *@
+	@* 		</div> *@
+	@* 		<div class="mb-2"> *@
+	@* 			<label for="newPrice" class="form-label">New Price</label> *@
+	@* 			<input type="number" name="NewPrice" class="form-control" step="0.01" required /> *@
+	@* 		</div> *@
+	@* 		<button type="submit" class="btn btn-success">Update Price</button> *@
+	@* 	</form> *@
+	@* </div> *@
+}
+else
+{
+	<div class="alert alert-info text-center">
+		No bookings found.
+	</div>
+}
