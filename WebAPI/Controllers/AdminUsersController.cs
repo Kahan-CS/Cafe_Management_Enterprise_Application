@@ -5,6 +5,12 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
+    public class UpdateProfileModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+
     // Admin controller to manage all users.
     [ApiController]
     [Route("api/admin/users")]
