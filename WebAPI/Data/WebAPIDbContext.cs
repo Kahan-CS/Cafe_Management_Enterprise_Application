@@ -56,7 +56,49 @@ namespace WebAPI.Data
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 Name = "Administrator"
             };
-            builder.Entity<ApplicationUser>().HasData(adminUser);
+
+            // Seed three additional (non-admin) users.
+            var user2 = new ApplicationUser
+            {
+                Id = "2",
+                UserName = "jane.doe",
+                NormalizedUserName = "JANE.DOE",
+                Email = "jane.doe@example.com",
+                NormalizedEmail = "JANE.DOE@EXAMPLE.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Password123!"),
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Name = "Jane Doe"
+            };
+
+            var user3 = new ApplicationUser
+            {
+                Id = "3",
+                UserName = "bob.smith",
+                NormalizedUserName = "BOB.SMITH",
+                Email = "bob.smith@example.com",
+                NormalizedEmail = "BOB.SMITH@EXAMPLE.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Password123!"),
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Name = "Bob Smith"
+            };
+
+            var user4 = new ApplicationUser
+            {
+                Id = "4",
+                UserName = "alice.johnson",
+                NormalizedUserName = "ALICE.JOHNSON",
+                Email = "alice.johnson@example.com",
+                NormalizedEmail = "ALICE.JOHNSON@EXAMPLE.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Password123!"),
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Name = "Alice Johnson"
+            };
+
+            // Combine the seed data for all users.
+            builder.Entity<ApplicationUser>().HasData(adminUser, user2, user3, user4);
 
             // Seed the Admin role.
             builder.Entity<IdentityRole>().HasData(
@@ -78,32 +120,51 @@ namespace WebAPI.Data
             );
 
             // Seed a Booking record associated with the admin user.
-            builder.Entity<Booking>().HasData(
-                new Booking
-                {
-                    BookingId = 1,
-                    Description = "Seeded Booking",
-                    EventDate = DateTime.Today.AddDays(7),
-                    Location = "Main Hall",
-                    CreatedByUserId = adminUserId
-                }
-            );
+            var booking1 = new Booking
+            {
+                BookingId = 1,
+                Description = "Seeded Booking by Admin",
+                EventDate = DateTime.Today.AddDays(7),
+                Location = "Main Hall",
+                CreatedByUserId = adminUserId
+            };
 
-            // Seed an Invitation record for the seeded booking.
-            builder.Entity<Invitation>().HasData(
-                new Invitation
-                {
-                    InvitationId = 1,
-                    GuestName = "John Doe",
-                    GuestEmail = "johndoe@example.com",
-                    Status = InvitationStatus.InviteNotSent,
-                    BookingId = 1
-                }
-            );
+            // Seed an additional Booking record for Jane Doe.
+            var booking2 = new Booking
+            {
+                BookingId = 2,
+                Description = "Seeded Booking by Jane",
+                EventDate = DateTime.Today.AddDays(10),
+                Location = "Conference Room A",
+                CreatedByUserId = "2"
+            };
+
+            builder.Entity<Booking>().HasData(booking1, booking2);
+
+            // Seed an Invitation record for the admin's booking.
+            var invitation1 = new Invitation
+            {
+                InvitationId = 1,
+                GuestName = "John Doe",
+                GuestEmail = "johndoe@example.com",
+                Status = InvitationStatus.InviteNotSent,
+                BookingId = 1
+            };
+
+            // Seed an additional Invitation record for Jane's booking.
+            var invitation2 = new Invitation
+            {
+                InvitationId = 2,
+                GuestName = "Mark Spencer",
+                GuestEmail = "mark.spencer@example.com",
+                Status = InvitationStatus.InviteNotSent,
+                BookingId = 2
+            };
+
+            builder.Entity<Invitation>().HasData(invitation1, invitation2);
         }
 
-        // Static method that can be invoked at startup to ensure an admin user exists.
-        // This is useful if you prefer to create the admin user using the Identity APIs rather than relying solely on EF Core migrations.
+        // Static method to ensure an admin user exists at runtime.
         public static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
             // Create a scope to retrieve scoped services.
@@ -140,7 +201,6 @@ namespace WebAPI.Data
                     }
                 }
             }
-
         }
     }
 }
