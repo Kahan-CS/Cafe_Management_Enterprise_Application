@@ -1,4 +1,6 @@
-﻿namespace AdminClient.Services
+﻿using AdminClient.Messages;
+
+namespace AdminClient.Services
 {
     public class AuthApiService
     {

@@ -1,4 +1,5 @@
-﻿using AdminClient.Services;
+﻿using AdminClient.Messages;
+using AdminClient.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminClient.Controllers
@@ -101,6 +102,6 @@ namespace AdminClient.Controllers
             return View();
         }
 
-        // Optionally, add actions to handle ResetPasswordConfirm
+        // TODO: add actions to handle ResetPasswordConfirm
     }
 }
