@@ -1,0 +1,70 @@
+﻿@model List<AdminClient.Messages.OrderDto>?
+
+@{
+	ViewData["Title"] = "All Orders";
+	var statusOptions = Enum.GetNames(typeof(AdminClient.Shared.Enums.OrderStatus));
+}
+
+@if (ViewBag.ApiError != null)
+{
+	<div class="alert alert-warning text-center">
+		@ViewBag.ApiError
+	</div>
+}
+
+<div class="text-center mb-4">
+	<h1 class="display-4">All Orders</h1>
+	<p>Browse or manage customer orders.</p>
+</div>
+
+@if (Model != null && Model.Any())
+{
+	<table class="table table-bordered">
+		<thead class="table-light">
+			<tr>
+				<th>Order ID</th>
+				<th>User ID</th>
+				<th>Status</th>
+				<th>Created</th>
+				<th>Items</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var order in Model)
+			{
+				<tr>
+					<td>@order.OrderId</td>
+					<td>@order.UserId</td>
+					<td>
+						<form asp-action="UpdateStatus" asp-controller="Order" method="post" class="d-flex align-items-center gap-2">
+							<input type="hidden" name="orderId" value="@order.OrderId" />
+							<select name="newStatus" class="form-select form-select-sm w-auto">
+								@foreach (var status in statusOptions)
+								{
+									<option value="@status" selected="@(status == order.Status.ToString())">
+										@status
+									</option>
+								}
+							</select>
+							<button type="submit" class="btn btn-sm btn-primary">Update</button>
+						</form>
+					</td>
+					<td>@order.TimeCreated.ToString("g")</td>
+					<td>@(order.Items?.Count ?? 0)</td>
+					<td>
+						<form asp-action="Delete" asp-route-id="@order.OrderId" method="post" onsubmit="return confirm('Delete this order?');">
+							<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<div class="alert alert-info text-center">
+		No orders found.
+	</div>
+}

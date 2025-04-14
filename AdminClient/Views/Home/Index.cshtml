@@ -27,6 +27,7 @@
 				<th>Description</th>
 				<th>Event Time</th>
 				<th>Guests</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,10 +40,40 @@
 					<td>@booking.Description</td>
 					<td>@booking.EventTime.ToString("g")</td>
 					<td>@(booking.Invitations?.Count ?? 0)</td>
+					<td>
+						<form asp-action="Cancel" asp-route-id="@booking.BookingId" method="post" onsubmit="return confirm('Cancel this booking?');">
+							<button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+						</form>
+					</td>
+
 				</tr>
 			}
 		</tbody>
 	</table>
+
+	<!-- Filter by User ID -->
+	<div class="mb-4">
+		<form asp-action="FilterByUser" method="get" class="d-flex gap-2">
+			<input type="number" name="userId" class="form-control" placeholder="Filter by User ID" required />
+			<button type="submit" class="btn btn-primary">Filter</button>
+		</form>
+	</div>
+
+	@* <!-- Booking Pricing Update --> *@
+	@* <div class="mb-4"> *@
+	@* 	<form asp-action="UpdatePricing" method="post" class="border p-3 rounded shadow-sm bg-light"> *@
+	@* 		<h5>Update Booking Pricing</h5> *@
+	@* 		<div class="mb-2"> *@
+	@* 			<label for="bookingId" class="form-label">Booking ID</label> *@
+	@* 			<input type="number" name="BookingId" class="form-control" required /> *@
+	@* 		</div> *@
+	@* 		<div class="mb-2"> *@
+	@* 			<label for="newPrice" class="form-label">New Price</label> *@
+	@* 			<input type="number" name="NewPrice" class="form-control" step="0.01" required /> *@
+	@* 		</div> *@
+	@* 		<button type="submit" class="btn btn-success">Update Price</button> *@
+	@* 	</form> *@
+	@* </div> *@
 }
 else
 {

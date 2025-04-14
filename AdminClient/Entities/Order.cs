@@ -13,6 +13,8 @@ namespace AdminClient.Entities
 		public int UserId { get; set; }
 
 		public OrderStatus Status { get; set; } = OrderStatus.Pending;
+		
+		public DateTime TimeCreated { get; set; }
 
 		public List<OrderItem> Items { get; set; } = [];
 	}
