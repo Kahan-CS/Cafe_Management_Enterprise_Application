@@ -32,6 +32,21 @@
 							<a class="nav-link text-dark" asp-controller="User" asp-action="Index">Users</a>
 						</li>
 					</ul>
+
+					<!-- Auth Links -->
+					<div class="d-flex">
+						@if (Context.Session.GetString("AuthToken") == null)
+						{
+							<a class="btn btn-primary" asp-controller="Auth" asp-action="Login">Login</a>
+							<a class="btn btn-utline-primary me-2" asp-controller="Auth" asp-action="Register">Register</a>
+						}
+						else
+						{
+							<form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
+								<button type="submit" class="btn btn-danger">Logout</button>
+							</form>
+						}
+					</div>
 				</div>
 			</div>
 		</nav>
