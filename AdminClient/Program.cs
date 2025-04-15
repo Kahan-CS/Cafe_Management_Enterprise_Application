@@ -31,23 +31,36 @@ builder.Services.Configure<ApiSettings>(options =>
 		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
 });
 
-builder.Services.AddHttpClient<BookingApiService>((provider, client) =>
+builder.Services.AddSession(options =>
 {
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
 });
 
-builder.Services.AddHttpClient<OrderApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-});
 
-builder.Services.AddHttpClient<UserApiService>((provider, client) =>
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
 {
 	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
 	client.BaseAddress = new Uri(settings.BaseUrl);
-});
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
 
 var app = builder.Build();
 
@@ -62,6 +75,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseSession();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -71,6 +88,5 @@ app.MapControllerRoute(
 	pattern: "{controller=Home}/{action=Index}/{id?}")
 	.WithStaticAssets();
 
-app.UseSession();
-
 app.Run();
+

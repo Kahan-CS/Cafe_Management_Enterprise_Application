@@ -32,7 +32,7 @@ request() {
 
     printf "\n\033[1;36m>> %s %s\033[0m\n" "$method" "$url"
 
-    http --body --check-status --ignore-stdin "$method" "$url" "$@"
+    http --body --check-status --ignore-stdin --print=HBhbm "$method" "$url" "$@"
     print_line
 }
 
