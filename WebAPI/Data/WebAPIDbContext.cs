@@ -14,6 +14,8 @@ namespace WebAPI.Data
 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<OrderRequest> OrderRequests { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
