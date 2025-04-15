@@ -57,16 +57,15 @@ namespace AdminClient.Controllers
 			return View(model);
 		}
 
-/* <<<<<<< HEAD */
-			{
-				// Store the token in session
-				HttpContext.Session.SetString("AuthToken", result.Token);
-				return RedirectToAction("Index", "Home");
-			}
-			ModelState.AddModelError("", result.Message);
-			return View(model);
-		}
-/* ======= */
+		//	{
+		//		// Store the token in session
+		//		HttpContext.Session.SetString("AuthToken", result.Token);
+		//		return RedirectToAction("Index", "Home");
+		//	}
+		//	ModelState.AddModelError("", result.Message);
+		//	return View(model);
+		//}
+
 		// POST: /Auth/Logout
 		[HttpPost]
 		public async Task<IActionResult> Logout()
@@ -75,7 +74,6 @@ namespace AdminClient.Controllers
 			HttpContext.Session.Remove("AuthToken");
 			return RedirectToAction("Login");
 		}
-/* >>>>>>> admin-client-fixes */
 
 		// GET: /Auth/ResetPassword
 		[HttpGet]
