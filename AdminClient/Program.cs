@@ -7,6 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Load environment variables from `.env` file 
 DotNetEnv.Env.Load();
 
+// Print API_BASE_URL for debugging
+Console.WriteLine("API_BASE_URL: " + Environment.GetEnvironmentVariable("API_BASE_URL"));
+
+builder.Services.Configure<ApiSettings>(options =>
+{
+	options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
+		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -25,12 +34,6 @@ builder.Services.AddSession();
 //builder.Services.Configure<ApiSettings>(
 //	builder.Configuration.GetSection("ApiSettings"));
 
-builder.Services.Configure<ApiSettings>(options =>
-{
-	options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
-		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
-});
-
 builder.Services.AddSession(options =>
 {
 	options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -41,25 +44,25 @@ builder.Services.AddHttpContextAccessor();
 
 //builder.Services.AddTransient<JwtTokenHandler>();
 
-//builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
-//{
-//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-//	client.BaseAddress = new Uri(settings.BaseUrl);
-//})
+builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
-//builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
-//{
-//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-//	client.BaseAddress = new Uri(settings.BaseUrl);
-//})
+builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
-//builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
-//{
-//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-//	client.BaseAddress = new Uri(settings.BaseUrl);
-//})
+builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
 var app = builder.Build();

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+//using Microsoft.IdentityModel.Tokens;
+//using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
-using System.Security.Claims;
-using System.Text;
+//using System.Security.Claims;
+//using System.Text;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -100,23 +100,25 @@ namespace WebAPI.Controllers
             if (!result.Succeeded)
                 return Unauthorized(new { message = "Invalid credentials." });
 
-            // Generate a JWT token (this is a simple example; adjust expiration, claims, and signing key per your needs)
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Email, user.Email)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var jwtToken = tokenHandler.WriteToken(token);
+            //// Generate a JWT token (this is a simple example; adjust expiration, claims, and signing key per your needs)
+            //var tokenHandler = new JwtSecurityTokenHandler();
+            //var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
+            //var tokenDescriptor = new SecurityTokenDescriptor
+            //{
+            //    Subject = new ClaimsIdentity(new Claim[]
+            //    {
+            //        new Claim(ClaimTypes.NameIdentifier, user.Id),
+            //        new Claim(ClaimTypes.Email, user.Email)
+            //    }),
+            //    Expires = DateTime.UtcNow.AddHours(1),
+            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            //};
+            //var token = tokenHandler.CreateToken(tokenDescriptor);
+            //var jwtToken = tokenHandler.WriteToken(token);
 
-            return Ok(new { token = jwtToken });
+            //return Ok(new { token = jwtToken });
+
+            return Ok(new { message = "Login successful." });
         }
 
         // POST: /logout
