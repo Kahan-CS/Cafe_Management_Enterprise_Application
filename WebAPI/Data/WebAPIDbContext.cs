@@ -17,9 +17,9 @@ namespace WebAPI.Data
         public DbSet<OrderRequest> OrderRequests { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
 
             // Configure the relationship between Booking and ApplicationUser.
@@ -55,8 +55,9 @@ namespace WebAPI.Data
                 Email = "admin@example.com",
                 NormalizedEmail = "ADMIN@EXAMPLE.COM",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Sesame123#"),
-                SecurityStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = "AQHAHAHAAEAACcQAAAAEGslp7npl23e2342126",
+                // static stamp, because we don't want to change it every time we seed the database
+                SecurityStamp = "00000000-0000-0000-0000-000000000001",
                 Name = "Administrator"
             };
 
@@ -69,8 +70,9 @@ namespace WebAPI.Data
                 Email = "jane.doe@example.com",
                 NormalizedEmail = "JANE.DOE@EXAMPLE.COM",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Password123!"),
-                SecurityStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342126",
+                // static stamp, because we don't want to change it every time we seed the database
+                SecurityStamp = "00000000-0000-0000-0000-000000000002",
                 Name = "Jane Doe"
             };
 
@@ -82,8 +84,9 @@ namespace WebAPI.Data
                 Email = "bob.smith@example.com",
                 NormalizedEmail = "BOB.SMITH@EXAMPLE.COM",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Password123!"),
-                SecurityStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342123",
+                // static stamp, because we don't want to change it every time we seed the database
+                SecurityStamp = "00000000-0000-0000-0000-000000000003",
                 Name = "Bob Smith"
             };
 
@@ -95,8 +98,9 @@ namespace WebAPI.Data
                 Email = "alice.johnson@example.com",
                 NormalizedEmail = "ALICE.JOHNSON@EXAMPLE.COM",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Password123!"),
-                SecurityStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = "AQAAAAEAACcQAAAAEGslp7npl23e2342124",
+                // static stamp, because we don't want to change it every time we seed the database
+                SecurityStamp = "00000000-0000-0000-0000-000000000004",
                 Name = "Alice Johnson"
             };
 
@@ -127,7 +131,7 @@ namespace WebAPI.Data
             {
                 BookingId = 1,
                 Description = "Seeded Booking by Admin",
-                EventDate = DateTime.Today.AddDays(7),
+                EventDate = new DateTime(2025, 10, 20),
                 Location = "Main Hall",
                 CreatedByUserId = adminUserId
             };
@@ -137,7 +141,7 @@ namespace WebAPI.Data
             {
                 BookingId = 2,
                 Description = "Seeded Booking by Jane",
-                EventDate = DateTime.Today.AddDays(10),
+                EventDate = new DateTime(2025, 10, 20),
                 Location = "Conference Room A",
                 CreatedByUserId = "2"
             };

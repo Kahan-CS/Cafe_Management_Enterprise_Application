@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using WebAPI.Data;
 using WebAPI.Models;
 
@@ -13,8 +17,27 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Register DbContext with SQL Server (change connection string as needed)
 builder.Services.AddDbContext<WebAPIDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CafeAppBackendDB")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CafeAppBackendDB"))
+           .ConfigureWarnings(warnings =>
+               warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
 
+// Services related to JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Secret"])),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero,
+    };
+});
 // Enable CORS
 builder.Services.AddCors(options =>
 {
@@ -52,6 +75,7 @@ app.UseHttpsRedirection();
 // Enable CORS
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 
 app.UseAuthorization();
 

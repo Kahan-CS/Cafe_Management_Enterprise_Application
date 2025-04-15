@@ -5,6 +5,12 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
+    public class UpdateProfileModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+
     // Admin controller to manage all users.
     [ApiController]
     [Route("api/admin/users")]
@@ -23,7 +29,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAllUsers()
         {
             var users = _userManager.Users
-                .Select(u => new { u.Id, u.Name, u.Email, u.UserName })
+                .Select(u => new { u.Id, u.Name, u.Email })
                 .ToList();
             return Ok(users);
         }
@@ -36,7 +42,7 @@ namespace WebAPI.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new { user.Id, user.Name, user.Email, user.UserName });
+            return Ok(new { user.Id, user.Name, user.Email });
         }
 
         // PUT: /admin/users/{userId}

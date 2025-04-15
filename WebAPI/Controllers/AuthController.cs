@@ -37,11 +37,7 @@ namespace WebAPI.Controllers
         public string NewPassword { get; set; } = string.Empty;
     }
 
-    public class UpdateProfileModel
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-    }
+
 
     // Controller for registration, login, logout, and password reset.
     [ApiController]
