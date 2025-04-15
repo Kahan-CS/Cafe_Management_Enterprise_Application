@@ -32,13 +32,12 @@
 			@foreach (var user in Model)
 			{
 				<tr>
-					<td>@user.UserId</td>
+					<td>@user.Id</td>
 					<td>@(user.Name ?? "—")</td>
 					<td>@(user.Email ?? "—")</td>
-					<td>@(user.Role)</td>
 					<td>
 						<form asp-action="Deactivate" asp-controller="User" method="post">
-							<input type="hidden" name="userId" value="@user.UserId" />
+							<input type="hidden" name="userId" value="@user.Id" />
 							<button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
 						</form>
 					</td>
