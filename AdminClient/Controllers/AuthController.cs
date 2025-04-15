@@ -49,22 +49,13 @@ namespace AdminClient.Controllers
 			var result = await _authService.LoginAsync(model);
 			if (result.Success)
 			{
-				// Store the token in session or cookie as appropriate.
+				// Store the token in session
 				HttpContext.Session.SetString("AuthToken", result.Token);
 				return RedirectToAction("Index", "Home");
 			}
 			ModelState.AddModelError("", result.Message);
 			return View(model);
 		}
-
-		//	{
-		//		// Store the token in session
-		//		HttpContext.Session.SetString("AuthToken", result.Token);
-		//		return RedirectToAction("Index", "Home");
-		//	}
-		//	ModelState.AddModelError("", result.Message);
-		//	return View(model);
-		//}
 
 		// POST: /Auth/Logout
 		[HttpPost]

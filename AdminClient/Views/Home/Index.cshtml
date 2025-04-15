@@ -23,7 +23,6 @@
 			<tr>
 				<th>Booking ID</th>
 				<th>User ID</th>
-				<th>Table Number</th>
 				<th>Description</th>
 				<th>Event Time</th>
 				<th>Guests</th>
@@ -35,11 +34,10 @@
 			{
 				<tr>
 					<td>@booking.BookingId</td>
-					<td>@booking.UserId</td>
-					<td>@booking.TableNumber</td>
+					<td>@booking.CreatedByUserId</td>
 					<td>@booking.Description</td>
-					<td>@booking.EventTime.ToString("g")</td>
-					<td>@(booking.Invitations?.Count ?? 0)</td>
+					<td>@booking.EventDate.ToString("g")</td>
+					<td>@(booking.NumberOfInvitations)</td>
 					<td>
 						<form asp-action="Cancel" asp-route-id="@booking.BookingId" method="post" onsubmit="return confirm('Cancel this booking?');">
 							<button type="submit" class="btn btn-danger btn-sm">Cancel</button>
