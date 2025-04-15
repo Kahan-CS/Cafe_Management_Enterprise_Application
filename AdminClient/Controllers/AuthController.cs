@@ -50,7 +50,7 @@ namespace AdminClient.Controllers
 			if (result.Success)
 			{
 				// Store the token in session
-				HttpContext.Session.SetString("AuthToken", result.Token);
+				//HttpContext.Session.SetString("AuthToken", result.Token);
 				return RedirectToAction("Index", "Home");
 			}
 			ModelState.AddModelError("", result.Message);
@@ -62,7 +62,7 @@ namespace AdminClient.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await _authService.LogoutAsync();
-			HttpContext.Session.Remove("AuthToken");
+			//HttpContext.Session.Remove("AuthToken");
 			return RedirectToAction("Login");
 		}
 

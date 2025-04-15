@@ -12,21 +12,21 @@ namespace AdminClient.Services
 		protected readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 		protected readonly IConfiguration _configuration = configuration;
 
-		// Adds JWT token to the Authorization header of every request
-		protected void AddJwtToHeader()
-		{
-			var token = _httpContextAccessor.HttpContext?.Session.GetString("JWToken");
+		//// Adds JWT token to the Authorization header of every request
+		//protected void AddJwtToHeader()
+		//{
+		//	var token = _httpContextAccessor.HttpContext?.Session.GetString("JWToken");
 
-			// If token exists, add it to the Authorization header
-			if (!string.IsNullOrWhiteSpace(token))
-			{
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-			}
-			else
-			{
-				// If no token exists, clear the header
-				_httpClient.DefaultRequestHeaders.Authorization = null;
-			}
-		}
+		//	// If token exists, add it to the Authorization header
+		//	if (!string.IsNullOrWhiteSpace(token))
+		//	{
+		//		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+		//	}
+		//	else
+		//	{
+		//		// If no token exists, clear the header
+		//		_httpClient.DefaultRequestHeaders.Authorization = null;
+		//	}
+		//}
 	}
 }

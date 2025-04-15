@@ -37,30 +37,30 @@ builder.Services.AddSession(options =>
 	options.Cookie.HttpOnly = true;
 });
 
-
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddTransient<JwtTokenHandler>();
 
-builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-})
-.AddHttpMessageHandler<JwtTokenHandler>();
+//builder.Services.AddTransient<JwtTokenHandler>();
 
-builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-})
-.AddHttpMessageHandler<JwtTokenHandler>();
+//builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
+//{
+//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+//	client.BaseAddress = new Uri(settings.BaseUrl);
+//})
+//.AddHttpMessageHandler<JwtTokenHandler>();
 
-builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-})
-.AddHttpMessageHandler<JwtTokenHandler>();
+//builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
+//{
+//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+//	client.BaseAddress = new Uri(settings.BaseUrl);
+//})
+//.AddHttpMessageHandler<JwtTokenHandler>();
+
+//builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
+//{
+//	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+//	client.BaseAddress = new Uri(settings.BaseUrl);
+//})
+//.AddHttpMessageHandler<JwtTokenHandler>();
 
 var app = builder.Build();
 

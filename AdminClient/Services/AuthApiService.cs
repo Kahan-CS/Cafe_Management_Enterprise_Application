@@ -10,18 +10,18 @@ namespace AdminClient.Services
 		private readonly HttpClient _httpClient = httpClient;
 		private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-		private void AddJwtToHeader()
-		{
-			var token = _httpContextAccessor.HttpContext?.Session.GetString("JWToken");
-			if (!string.IsNullOrWhiteSpace(token))
-			{
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-			}
-			else
-			{
-				_httpClient.DefaultRequestHeaders.Authorization = null;
-			}
-		}
+		//private void AddJwtToHeader()
+		//{
+		//	var token = _httpContextAccessor.HttpContext?.Session.GetString("JWToken");
+		//	if (!string.IsNullOrWhiteSpace(token))
+		//	{
+		//		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+		//	}
+		//	else
+		//	{
+		//		_httpClient.DefaultRequestHeaders.Authorization = null;
+		//	}
+		//}
 
 		// Registers a new user.
 		public async Task<ApiResponseDto> RegisterAsync(RegisterDto registerDto)
@@ -51,7 +51,8 @@ namespace AdminClient.Services
 			catch (HttpRequestException ex)
 			{
 				Console.Error.WriteLine($"[AuthApiService] Login failed: {ex.Message}");
-				return new LoginResponseDto { Success = false, Token = string.Empty, Message = ex.Message };
+				//return new LoginResponseDto { Success = false, Token = string.Empty, Message = ex.Message };
+				return new LoginResponseDto { Success = false, Message = ex.Message };
 			}
 		}
 
