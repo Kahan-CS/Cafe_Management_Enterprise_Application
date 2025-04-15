@@ -17,8 +17,8 @@ namespace AdminClient.Entities
 		[Required(ErrorMessage = "Please provide a password.")]
 		public string Password { get; set; } = string.Empty;
 
-		// The user's role
-		[Required(ErrorMessage = "Please select a role for the user.")]
-		public UserRole Role { get; set; } = UserRole.Customer;
+		//// The user's role
+		//[Required(ErrorMessage = "Please select a role for the user.")]
+		//public UserRole Role { get; set; } = UserRole.Customer;
 	}
 }
