@@ -1,14 +1,26 @@
 ﻿using AdminClient.Messages;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace AdminClient.Services
 {
-	public class AuthApiService
+	public class AuthApiService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
 	{
-		private readonly HttpClient _httpClient;
+		private readonly HttpClient _httpClient = httpClient;
+		private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-		public AuthApiService(HttpClient httpClient)
+		private void AddJwtToHeader()
 		{
-			_httpClient = httpClient;
+			var token = _httpContextAccessor.HttpContext?.Session.GetString("JWToken");
+			if (!string.IsNullOrWhiteSpace(token))
+			{
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			}
+			else
+			{
+				_httpClient.DefaultRequestHeaders.Authorization = null;
+			}
 		}
 
 		// Registers a new user.

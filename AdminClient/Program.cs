@@ -10,6 +10,14 @@ DotNetEnv.Env.Load();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient<AuthApiService>();
+builder.Services.AddHttpClient<BookingApiService>();
+builder.Services.AddHttpClient<OrderApiService>();
+builder.Services.AddHttpClient<UserApiService>();
+
+builder.Services.AddSession();
+
 //builder.Configuration
 //	.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 //	.AddEnvironmentVariables();
@@ -62,5 +70,7 @@ app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}")
 	.WithStaticAssets();
+
+app.UseSession();
 
 app.Run();
