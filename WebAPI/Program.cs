@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebAPI.Data;
@@ -16,7 +17,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Register DbContext with SQL Server (change connection string as needed)
 builder.Services.AddDbContext<WebAPIDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CafeAppBackendDB")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CafeAppBackendDB"))
+           .ConfigureWarnings(warnings =>
+               warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
 
 // Services related to JWT
 builder.Services.AddAuthentication(options =>

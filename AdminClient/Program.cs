@@ -19,48 +19,66 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<ApiSettings>(options =>
 {
-	options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
-		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
+    options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
+        ?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
 });
 
-builder.Services.AddHttpClient<BookingApiService>((provider, client) =>
+builder.Services.AddSession(options =>
 {
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
 });
 
-builder.Services.AddHttpClient<OrderApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-});
 
-builder.Services.AddHttpClient<UserApiService>((provider, client) =>
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
 {
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-});
+    var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+    client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
+{
+    var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+    client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
+
+builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
+{
+    var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+    client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseSession();
+
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}")
-	.WithStaticAssets();
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
 
 app.Run();
