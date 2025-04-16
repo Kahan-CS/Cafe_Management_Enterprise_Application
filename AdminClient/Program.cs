@@ -8,10 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 DotNetEnv.Env.Load();
 
 // Print API_BASE_URL for debugging
-Console.WriteLine("API_BASE_URL: " + Environment.GetEnvironmentVariable("API_BASE_URL"));
+Console.WriteLine("\n\n************ DEBUG: API_BASE_URL ************");
+Console.WriteLine($"API_BASE_URL: {Environment.GetEnvironmentVariable("API_BASE_URL")}");
+Console.WriteLine("**********************************************\n\n");
 
 builder.Services.Configure<ApiSettings>(options =>
 {
+	// Fail immediately if API base URL is absent
 	options.BaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL")
 		?? throw new InvalidOperationException("API_BASE_URL is missing in .env");
 });
