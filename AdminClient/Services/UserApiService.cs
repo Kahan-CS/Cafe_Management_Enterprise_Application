@@ -9,10 +9,9 @@ namespace AdminClient.Services
 		// Retrieve all users
 		public async Task<List<UserDto>> GetAllUsersAsync()
 		{
-			// Gracefully return empty list if HTTP request fails
 			try
 			{
-				var response = await _httpClient.GetFromJsonAsync<List<UserDto>>("/admin/users");
+				var response = await _httpClient.GetFromJsonAsync<List<UserDto>>("/api/admin/users");
 				return response ?? [];
 			}
 			catch (HttpRequestException ex)
@@ -22,12 +21,12 @@ namespace AdminClient.Services
 			}
 		}
 
-		// Get a user by UserID
-		public async Task<UserDto?> GetUserByIdAsync(int userId)
+		// Get a user by ID (string for Identity GUID)
+		public async Task<UserDto?> GetUserByIdAsync(string userId)
 		{
 			try
 			{
-				return await _httpClient.GetFromJsonAsync<UserDto>($"/admin/users/{userId}");
+				return await _httpClient.GetFromJsonAsync<UserDto>($"/api/admin/users/{userId}");
 			}
 			catch (HttpRequestException ex)
 			{
@@ -37,28 +36,34 @@ namespace AdminClient.Services
 		}
 
 		// Update a user
-		public async Task UpdateUserAsync(int userId, UserDto updatedUser)
+		public async Task<ApiResponseDto> UpdateUserAsync(string userId, UserDto updatedUser)
 		{
 			try
 			{
-				await _httpClient.PutAsJsonAsync($"/admin/users/{userId}", updatedUser);
+				var response = await _httpClient.PutAsJsonAsync($"/api/admin/users/{userId}", updatedUser);
+				response.EnsureSuccessStatusCode();
+				return await response.Content.ReadFromJsonAsync<ApiResponseDto>() ?? new ApiResponseDto();
 			}
 			catch (HttpRequestException ex)
 			{
 				Console.Error.WriteLine($"[UserApiService] Failed to update user {userId}: {ex.Message}");
+				return new ApiResponseDto { Success = false, Message = ex.Message };
 			}
 		}
 
 		// Delete a user
-		public async Task DeleteUserAsync(int userId)
+		public async Task<ApiResponseDto> DeleteUserAsync(string userId)
 		{
 			try
 			{
-				await _httpClient.DeleteAsync($"/admin/users/{userId}");
+				var response = await _httpClient.DeleteAsync($"/api/admin/users/{userId}");
+				response.EnsureSuccessStatusCode();
+				return await response.Content.ReadFromJsonAsync<ApiResponseDto>() ?? new ApiResponseDto();
 			}
 			catch (HttpRequestException ex)
 			{
 				Console.Error.WriteLine($"[UserApiService] Failed to delete user {userId}: {ex.Message}");
+				return new ApiResponseDto { Success = false, Message = ex.Message };
 			}
 		}
 	}

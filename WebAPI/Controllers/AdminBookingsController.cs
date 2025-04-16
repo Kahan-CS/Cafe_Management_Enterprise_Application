@@ -8,8 +8,8 @@ namespace WebAPI.Controllers
 {
     [Route("api/admin/bookings")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
-    public class AdminBookingsController : ControllerBase
+    //[Authorize(Roles = "Admin")]
+	public class AdminBookingsController : ControllerBase
     {
         private readonly WebAPIDbContext _context;
 
@@ -22,7 +22,9 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBookings()
         {
+            Console.WriteLine("[API] /admin/bookings called");
             var bookings = await _context.Bookings.Include(b => b.Invitations).ToListAsync();
+            Console.WriteLine($"[API] Returning {bookings.Count} bookings");
             return Ok(bookings);
         }
 

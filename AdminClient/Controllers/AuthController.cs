@@ -17,19 +17,27 @@ namespace AdminClient.Controllers
 
 		// POST: /Auth/Register
 		[HttpPost]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Register(RegisterDto model)
 		{
 			if (!ModelState.IsValid)
 				return View(model);
 
+			// Call API service to register the user
 			var result = await _authService.RegisterAsync(model);
+
 			if (result.Success)
 			{
 				// If registration succeeds, redirect to login.
 				return RedirectToAction("Login");
 			}
-			ModelState.AddModelError("", result.Message);
-			return View(model);
+			else
+			{
+				// If registration fails, show error message
+				ModelState.AddModelError("", result.Message);
+				return View(model);
+			}
 		}
 
 		// GET: /Auth/Login

@@ -6,7 +6,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/orderprocessing")]
+    [Route("api/admin/orderprocessing")]
     [ApiController]
     [Authorize]
     public class OrderProcessingController : ControllerBase

@@ -11,7 +11,7 @@ namespace AdminClient.Services
 		{
 			try
 			{
-				var response = await _httpClient.GetFromJsonAsync<List<OrderDto>>("/admin/orders");
+				var response = await _httpClient.GetFromJsonAsync<List<OrderDto>>("/api/admin/orders");
 				return response ?? [];
 			}
 			catch (HttpRequestException ex)
@@ -26,7 +26,7 @@ namespace AdminClient.Services
 		{
 			try
 			{
-				var response = await _httpClient.GetFromJsonAsync<List<OrderDto>>($"/admin/orders/user/{userId}");
+				var response = await _httpClient.GetFromJsonAsync<List<OrderDto>>($"/api/admin/orders/user/{userId}");
 				return response ?? [];
 			}
 			catch (HttpRequestException ex)
@@ -41,7 +41,7 @@ namespace AdminClient.Services
 		{
 			try
 			{
-				await _httpClient.PutAsJsonAsync($"/admin/orders/{orderId}", updatedOrder);
+				await _httpClient.PutAsJsonAsync($"/api/admin/orders/{orderId}", updatedOrder);
 			}
 			catch (HttpRequestException ex)
 			{
@@ -54,7 +54,7 @@ namespace AdminClient.Services
 		{
 			try
 			{
-				await _httpClient.DeleteAsync($"/admin/orders/{orderId}");
+				await _httpClient.DeleteAsync($"/api/admin/orders/{orderId}");
 			}
 			catch (HttpRequestException ex)
 			{

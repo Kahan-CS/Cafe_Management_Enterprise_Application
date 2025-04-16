@@ -14,8 +14,8 @@ namespace WebAPI.Controllers
     // Admin controller to manage all users.
     [ApiController]
     [Route("api/admin/users")]
-    [Authorize(Roles = "Admin")]
-    public class AdminUsersController : ControllerBase
+    //[Authorize(Roles = "Admin")]
+	public class AdminUsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
 

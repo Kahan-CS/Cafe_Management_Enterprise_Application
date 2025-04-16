@@ -54,18 +54,25 @@ builder.Services.AddHttpClient<AuthApiService>((provider, client) =>
 });
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
-builder.Services.AddHttpClient<AdminUserApiService>((provider, client) =>
+builder.Services.AddHttpClient<BookingApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
+
+builder.Services.AddHttpClient<OrderApiService>((provider, client) =>
+{
+	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
+	client.BaseAddress = new Uri(settings.BaseUrl);
+});
+
+builder.Services.AddHttpClient<UserApiService>((provider, client) =>
 {
 	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
 	client.BaseAddress = new Uri(settings.BaseUrl);
 });
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
-builder.Services.AddHttpClient<AdminBookingApiService>((provider, client) =>
-{
-	var settings = provider.GetRequiredService<IOptions<ApiSettings>>().Value;
-	client.BaseAddress = new Uri(settings.BaseUrl);
-});
 //.AddHttpMessageHandler<JwtTokenHandler>();
 
 var app = builder.Build();

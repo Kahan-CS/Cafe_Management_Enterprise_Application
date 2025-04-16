@@ -1,5 +1,4 @@
-﻿using AdminClient.Entities;
-using AdminClient.Messages;
+﻿using AdminClient.Messages;
 using AdminClient.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +8,7 @@ namespace AdminClient.Controllers
 	{
 		private readonly BookingApiService _bookingService = bookingService;
 
-		// Get all bookings
+		// GET: All bookings
 		public async Task<IActionResult> Index()
 		{
 			var bookings = await _bookingService.GetAllBookingsAsync();
@@ -22,8 +21,8 @@ namespace AdminClient.Controllers
 			return View(bookings);
 		}
 
-		// Get bookings for a particular user
-		public async Task<IActionResult> FilterByUser(int userId)
+		// GET: Bookings filtered by user
+		public async Task<IActionResult> FilterByUser(string userId)
 		{
 			try
 			{
@@ -37,12 +36,60 @@ namespace AdminClient.Controllers
 			}
 		}
 
-		// Cancel booking
+		// POST: Cancel booking
 		[HttpPost]
 		public async Task<IActionResult> Cancel(int id)
 		{
 			await _bookingService.DeleteBookingAsync(id);
 			return RedirectToAction("Index");
+		}
+
+		// GET: Edit booking
+		public async Task<IActionResult> Edit(int id)
+		{
+			var bookings = await _bookingService.GetAllBookingsAsync();
+			var booking = bookings.FirstOrDefault(b => b.BookingId == id);
+			if (booking == null)
+			{
+				return NotFound();
+			}
+			return View(booking);
+		}
+
+		// POST: Edit booking
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, BookingDto bookingDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(bookingDto);
+			}
+
+			await _bookingService.UpdateBookingAsync(id, bookingDto);
+			return RedirectToAction("Index");
+		}
+
+		// GET: Update pricing
+		public IActionResult UpdatePricing()
+		{
+			return View();
+		}
+
+		// POST: Update pricing
+		[HttpPost]
+		public async Task<IActionResult> UpdatePricing(PricingUpdateDto pricingDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(pricingDto);
+			}
+
+			var response = await _bookingService.UpdateBookingPricingAsync(pricingDto);
+			if (response.Success)
+				return RedirectToAction("Index");
+
+			ModelState.AddModelError("", response.Message);
+			return View(pricingDto);
 		}
 	}
 }
