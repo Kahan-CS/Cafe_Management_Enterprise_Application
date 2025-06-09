@@ -4,6 +4,11 @@
 
 The Café Event Manager is intended to streamline the process of planning a meeting at a local coffee shop for both customers and staff.  It will allow users to book tables (and invite their friends/colleagues), pre-order food and drinks, and store their information in an account.  The application consists of a customer-facing client interface, a café staff/administrator interface, and a set of web APIs to handle booking management, order processing, and user authentication.
 
+## High-level Diagrams:
+
+<img src="https://github.com/Kahan-CS/Cafe_Management_Enterprise_Application/blob/main/Photos/Architecture-EnterpriseDev-CafeApp.drawio.png" height="35%" width="35%">
+<img src="https://github.com/Kahan-CS/Cafe_Management_Enterprise_Application/blob/main/Photos/Editor%20_%20Mermaid%20Chart-2025-04-16-172121.png" height="70%" width="70%">
+
 ## Problem Domain
 
 Many coffee shops offer private event bookings but lack a sophisticated reservation and order management system.  Customers may need to call or email to make reservations, while staff manually record and track bookings as well as orders for food and drinks.  This can lead to miscommunication and inefficiency.
